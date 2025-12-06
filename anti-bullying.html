@@ -1,0 +1,153 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Bullying Campaign</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #79aaff, #d8e7ff);
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(0px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #0b3d91;
+            font-weight: 700;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0b3d91;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
+        }
+
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            color: #063d7b;
+            margin-bottom: 10px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: #164d93;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 20px;
+            background: #063d7b;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+            background: #0a4fa7;
+        }
+
+        /* Illustration */
+        .hero img {
+            width: 450px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0px); }
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .hero img {
+                width: 300px;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+      
+        <h2>Anti-Bullying</h2>
+         <nav>
+        <div >
+             <a href="anti-bullying.html">HOME</a>
+           <a href="about.html">ABOUT</a>
+           <a href="help.html">HELP</a>
+         
+    </nav>
+    
+     
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Stand Up Against Bullying</h1>
+            <p>Together we can create a world where everyone feels safe, respected, and valued.  
+               Your voice matters. Your kindness matters even more.</p>
+            <button class="btn">Join the Movement</button>
+        </div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/4149/4149677.png" alt="Anti Bullying Image">
+    </section>
+
+</body>
+</html>
