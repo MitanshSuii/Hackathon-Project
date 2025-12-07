@@ -1,349 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Report Bullying — Safe Report Form</title>
-  <style>
-    :root{
-      --bg: #f4fbff;
-      --card: #ffffff;
-      --accent: #006eff;
-      --accent-2: #00bfa6;
-      --danger: #ff5c5c;
-      --muted: #6c7a89;
-      --glass: rgba(255,255,255,0.6);
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Report a Complaint</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Poppins, sans-serif;
+        background-image: url("give.png");
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;min-height:100vh;background:linear-gradient(135deg,var(--bg),#eaf8ff);font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;display:flex;align-items:center;justify-content:center;padding:24px;color:#102027;
+
+    .container {
+        width: 90%;
+        max-width: 650px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(8px);
     }
-    .wrap{width:100%;max-width:960px}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    header h1{margin:0;font-size:20px}
-    .card{
-      background:var(--card);border-radius:14px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.08);
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #005bbb;
     }
-    .grid{display:grid;grid-template-columns:1fr 340px;gap:20px}
-    @media (max-width:880px){.grid{grid-template-columns:1fr}}
 
-    form{display:flex;flex-direction:column;gap:12px}
-    label{display:block;font-weight:600;margin-bottom:6px}
-    .field{display:flex;flex-direction:column}
-    input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea, select{
-      width:100%;padding:10px;border-radius:10px;border:1px solid #d7e6ef;background:transparent;font-size:14px;outline:none;transition:all .18s ease
+    label {
+        font-weight: 600;
+        display: block;
+        margin-top: 15px;
     }
-    input:focus, textarea:focus, select:focus{box-shadow:0 6px 18px rgba(0,110,255,0.08);border-color:var(--accent)}
-    textarea{min-height:120px;resize:vertical}
 
-    .row{display:flex;gap:12px}
-    .row .col{flex:1}
-
-    .minor{font-size:13px;color:var(--muted)}
-
-    .actions{display:flex;gap:12px;margin-top:6px}
-    button{cursor:pointer;border:0;padding:12px 14px;border-radius:10px;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#0052d4);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid #d6e7ff;color:#08304a}
-    .btn-danger{background:linear-gradient(90deg,var(--danger),#ff7b7b);color:#fff}
-
-    .side{
-      padding:18px;background:linear-gradient(180deg, rgba(0,111,255,0.04), rgba(0,191,166,0.02));border-radius:10px;display:flex;flex-direction:column;gap:12px;align-items:stretch
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        border-radius: 10px;
+        border: 2px solid #b9b9b9;
+        font-size: 15px;
+        transition: 0.3s;
     }
-    .summary{font-size:14px}
-    .meta{font-size:13px;color:var(--muted)}
 
-    .file-list{display:flex;flex-direction:column;gap:8px}
-    .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border-radius:999px;background:#f2fbfa;border:1px solid #e6f6f3;font-size:13px}
+    input:focus, select:focus, textarea:focus {
+        border-color: #0088ff;
+        transform: scale(1.02);
+    }
 
-    .toast{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:#0d4b66;color:#fff;box-shadow:0 6px 20px rgba(3,18,31,0.18);display:none}
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
 
-    .report-card{background:linear-gradient(90deg,#fff,#f7fdff);padding:14px;border-radius:10px;border:1px solid #e9f7ff}
+    button {
+        width: 100%;
+        margin-top: 25px;
+        background: #007bff;
+        color: white;
+        font-size: 18px;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-    .small-muted{font-size:13px;color:var(--muted)}
+    button:hover {
+        background: #0061cc;
+        transform: scale(1.03);
+    }
 
-    footer{margin-top:12px;font-size:12px;color:var(--muted);text-align:center}
+    .success {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        background: #c9ffd5;
+        color: #0a6b16;
+        display: none;
+        font-weight: 600;
+    }
+     nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
 
-  </style>
+        nav h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #0b3d91;
+            font-weight: 700;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0b3d91;
+            font-weight: 600;
+        }
+</style>
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15 8H9L12 2Z" fill="#006EFF"/><path d="M12 22C16.4183 22 20 18.4183 20 14H4C4 18.4183 7.58172 22 12 22Z" fill="#00BFA6"/></svg>
-      <div>
-        <h1>Report Bullying — Safe Report Form</h1>
-        <div class="minor">A private report form. No data is sent anywhere by default — you can download or print the report.</div>
-      </div>
-    </header>
-
-    <div class="card">
-      <div class="grid">
-        <div>
-          <form id="reportForm" autocomplete="off">
-
-            <div class="field">
-              <label for="reporterName">Your full name</label>
-              <input id="reporterName" type="text" placeholder="Optional — you can stay anonymous" />
-              <div class="small-muted">If you prefer anonymity, leave this blank.</div>
-            </div>
-
-            <div class="row">
-              <div class="col field">
-                <label for="contact">Your contact (email or phone)</label>
-                <input id="contact" type="text" placeholder="Enter email or phone (optional)" />
-              </div>
-              <div class="col field">
-                <label for="relation">Your relation to the victim</label>
-                <select id="relation">
-                  <option value="self">Myself</option>
-                  <option value="friend">Friend</option>
-                  <option value="parent">Parent/Guardian</option>
-                  <option value="teacher">Teacher/Staff</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <hr />
-
-            <div class="field">
-              <label for="bullyName">Name of person you're reporting</label>
-              <input id="bullyName" type="text" placeholder="Full name or nickname (if known)" />
-            </div>
-
-            <div class="row">
-              <div class="col field">
-                <label for="incidentDate">Incident date</label>
-                <input id="incidentDate" type="date" />
-              </div>
-              <div class="col field">
-                <label for="incidentTime">Approx. time</label>
-                <input id="incidentTime" type="time" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="location">Location</label>
-              <input id="location" type="text" placeholder="Where did it happen? (classroom, online, bus, etc.)" />
-            </div>
-
-            <div class="field">
-              <label for="details">Describe the incident (what happened?)</label>
-              <textarea id="details" placeholder="Be as detailed as possible: words used, actions, witness names, sequence of events..."></textarea>
-            </div>
-
-            <div class="field">
-              <label for="witnesses">Witnesses (names / contact)</label>
-              <input id="witnesses" type="text" placeholder="Comma-separated names or contacts (if any)" />
-            </div>
-
-            <div class="field">
-              <label for="evidence">Attach evidence (screenshots, photos, files) — optional</label>
-              <input id="evidence" type="file" multiple accept="image/*,video/*,.pdf" />
-              <div class="minor">Files are stored locally in your browser and included in the downloadable report as encoded data.</div>
-            </div>
-
-            <div style="display:flex;gap:10px;align-items:center;">
-              <input id="consent" type="checkbox" />
-              <label for="consent">I confirm that the information I provided is true to the best of my knowledge.</label>
-            </div>
-
-            <div class="actions">
-              <button type="button" class="btn-primary" id="submitBtn">Create Report</button>
-              <button type="button" class="btn-ghost" id="previewBtn">Preview</button>
-              <button type="button" class="btn-danger" id="clearBtn">Clear</button>
-            </div>
-
-            <div class="minor">This form does <strong>not</strong> automatically send data to any server. Use the download or print options to share the report with school authorities, parents, or police according to your needs.</div>
-
-          </form>
+<nav>
+        <div >
+           <a href="anti-bullying.html">HOME</a>
+           <a href="about.html">ABOUT</a>
+            <a href="help.html">HELP</a>
+             <a href="report.html">REPORT</a>
+            <a href="admin.html">ADMIN</a>
         </div>
+    </nav>
+<body>
 
-        <aside class="side">
-          <div class="report-card">
-            <div class="summary" id="liveSummary"><strong>Report Summary</strong><div class="meta">Fill fields to see a quick summary here.</div></div>
-          </div>
+<div class="container">
+    <h1>Report a Complaint</h1>
 
-          <div class="file-list" id="fileList" aria-live="polite"></div>
+    <label>Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name" />
 
-          <div>
-            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-              <div class="small-muted">Actions</div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <button id="downloadBtn" class="btn-ghost">Download JSON</button>
-              <button id="printBtn" class="btn-primary">Print Report</button>
-            </div>
-          </div>
+    <label>Class / Grade:</label>
+    <input type="text" id="class" placeholder="Enter your class" />
 
-          <div style="margin-top:auto;font-size:13px;color:var(--muted)">
-            <strong>Need immediate help?</strong>
-            <div class="minor">If you're in danger, contact local emergency services right away.</div>
-          </div>
-        </aside>
-      </div>
+    <label>Type of Complaint:</label>
+    <select id="type">
+        <option value="Bullying">Bullying</option>
+        <option value="Harassment">Harassment</option>
+        <option value="Misbehaviour">Misbehaviour</option>
+        <option value="Threatening">Threatening</option>
+        <option value="Other">Other</option>
+    </select>
 
-      <footer>Tip: Keep copies of screenshots and save evidence securely.</footer>
-    </div>
-  </div>
+    <label>Name of the Person You're Reporting:</label>
+    <input type="text" id="against" placeholder="Enter the person's name" />
 
-  <div class="toast" id="toast"></div>
+    <label>Description of the Incident:</label>
+    <textarea id="details" placeholder="Describe what happened..."></textarea>
 
-  <script>
-    // Helper: show toast
-    function showToast(text, timeout=3500){
-      const t = document.getElementById('toast');
-      t.textContent = text; t.style.display='block'; t.style.opacity=1;
-      setTimeout(()=>{t.style.opacity=0; t.style.display='none'}, timeout);
+    <button onclick="submitReport()">Submit Report</button>
+
+    <div class="success" id="success">✔ Your complaint has been submitted successfully!</div>
+</div>
+
+<script>
+function submitReport() {
+    let name = document.getElementById("name").value.trim();
+    let className = document.getElementById("class").value.trim();
+    let type = document.getElementById("type").value;
+    let against = document.getElementById("against").value.trim();
+    let details = document.getElementById("details").value.trim();
+
+    if (!name || !className || !against || !details) {
+        alert("Please fill in all fields before submitting.");
+        return;
     }
 
-    // Elements
-    const form = document.getElementById('reportForm');
-    const reporterName = document.getElementById('reporterName');
-    const contact = document.getElementById('contact');
-    const relation = document.getElementById('relation');
-    const bullyName = document.getElementById('bullyName');
-    const incidentDate = document.getElementById('incidentDate');
-    const incidentTime = document.getElementById('incidentTime');
-    const locationEl = document.getElementById('location');
-    const details = document.getElementById('details');
-    const witnesses = document.getElementById('witnesses');
-    const evidence = document.getElementById('evidence');
+    document.getElementById("success").style.display = "block";
 
-    const submitBtn = document.getElementById('submitBtn');
-    const previewBtn = document.getElementById('previewBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const printBtn = document.getElementById('printBtn');
+    setTimeout(() => {
+        document.getElementById("success").style.display = "none";
+    }, 4000);
 
-    const liveSummary = document.getElementById('liveSummary');
-    const fileList = document.getElementById('fileList');
+    document.getElementById("name").value = "";
+    document.getElementById("class").value = "";
+    document.getElementById("against").value = "";
+    document.getElementById("details").value = "";
+}
+</script>
 
-    // Update summary live
-    function updateSummary(){
-      const name = reporterName.value || 'Anonymous';
-      const victim = bullyName.value || 'Unknown';
-      const date = incidentDate.value || '—';
-      const place = locationEl.value || '—';
-      const short = details.value ? details.value.slice(0,140) + (details.value.length>140? '…':'') : 'No details yet';
-
-      liveSummary.innerHTML = `<strong>Report Summary</strong>
-        <div class="meta">By: ${name}</div>
-        <div class="minor">Reported person: <strong>${victim}</strong></div>
-        <div class="minor">Date: ${date} • Location: ${place}</div>
-        <div style="margin-top:8px">${short}</div>`;
-    }
-
-    // File handling: read files into memory as data URLs
-    async function readEvidenceFiles(){
-      const files = Array.from(evidence.files || []);
-      const out = [];
-      fileList.innerHTML = '';
-      for(const f of files){
-        const reader = new FileReader();
-        const promise = new Promise((res, rej)=>{
-          reader.onload = ()=>res({name:f.name,type:f.type,size:f.size,data:reader.result});
-          reader.onerror = ()=>rej();
-        });
-        reader.readAsDataURL(f);
-        const fileData = await promise;
-        out.push(fileData);
-
-        const chip = document.createElement('div'); chip.className='chip';
-        chip.textContent = f.name + ' (' + Math.round(f.size/1024) + ' KB)';
-        fileList.appendChild(chip);
-      }
-      return out;
-    }
-
-    evidence.addEventListener('change', ()=>{
-      updateSummary();
-    });
-
-    // Create report object
-    async function createReportObject(){
-      const files = await readEvidenceFiles();
-      return {
-        createdAt: new Date().toISOString(),
-        reporter: reporterName.value || null,
-        contact: contact.value || null,
-        relation: relation.value || null,
-        reportedPerson: bullyName.value || null,
-        incidentDate: incidentDate.value || null,
-        incidentTime: incidentTime.value || null,
-        location: locationEl.value || null,
-        details: details.value || null,
-        witnesses: witnesses.value || null,
-        evidence: files
-      };
-    }
-
-    // Basic validation
-    function validateBeforeCreate(){
-      if(!details.value || details.value.trim().length < 10){
-        showToast('Please provide more details about the incident (at least 10 characters).');
-        return false;
-      }
-      const consent = document.getElementById('consent');
-      if(!consent.checked){
-        showToast('Please confirm the information is true by checking the box.');
-        return false;
-      }
-      return true;
-    }
-
-    // Download JSON
-    downloadBtn.addEventListener('click', async ()=>{
-      if(!validateBeforeCreate()) return;
-      const report = await createReportObject();
-      const blob = new Blob([JSON.stringify(report,null,2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'bullying-report.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-      showToast('Report downloaded as JSON');
-    });
-
-    // Print report
-    printBtn.addEventListener('click', async ()=>{
-      if(!validateBeforeCreate()) return;
-      const report = await createReportObject();
-      const w = window.open('', '_blank');
-      const html = `<!doctype html><html><head><meta charset="utf-8"><title>Print Report</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:24px;color:#122;} h1{color:#006eff} pre{white-space:pre-wrap;background:#f7fbff;padding:12px;border-radius:8px;border:1px solid #e6f3ff}</style></head><body><h1>Bullying Report</h1><pre>${escapeHtml(JSON.stringify(report, null, 2))}</pre><script>window.onload=()=>setTimeout(()=>window.print(),300)</script></body></html>`;
-      w.document.write(html); w.document.close();
-    });
-
-    // Preview shows the summary in a modal-like new window
-    previewBtn.addEventListener('click', async ()=>{
-      const report = await createReportObject();
-      const previewHtml = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Preview Report</title><style>body{font-family:Inter,Arial;padding:18px;color:#102;}h2{color:#006eff} .meta{color:#6b7a88}</style></head><body><h2>Preview — Bullying Report</h2><div class="meta">Generated: ${new Date().toLocaleString()}</div><pre>${escapeHtml(JSON.stringify(report, null, 2))}</pre></body></html>`;
-      const pw = window.open('', '_blank'); pw.document.write(previewHtml); pw.document.close();
-    });
-
-    // Create report button (simulate "submit")
-    submitBtn.addEventListener('click', async ()=>{
-      if(!validateBeforeCreate()) return;
-      const report = await createReportObject();
-      // Save to localStorage for persistence on this device
-      const saved = JSON.parse(localStorage.getItem('bullyingReports') || '[]');
-      saved.push(report); localStorage.setItem('bullyingReports', JSON.stringify(saved));
-      showToast('Report created and saved locally');
-      updateSummary();
-    });
-
-    // Clear form
-    clearBtn.addEventListener('click', ()=>{
-      if(!confirm('Clear the form? This will not delete saved reports.')) return;
-      form.reset(); fileList.innerHTML=''; updateSummary(); showToast('Form cleared');
-    });
-
-    // Live updates
-    [reporterName, contact, relation, bullyName, incidentDate, incidentTime, locationEl, details, witnesses].forEach(el=>el.addEventListener('input', updateSummary));
-
-    // escapeHtml util for printing
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]}); }
-
-    // initial
-    updateSummary();
-
-  </script>
 </body>
 </html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Report Complaint + Admin Panel</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Poppins, sans-serif;
+        background-image: url("give.png");
+    }
+
+    /* Navigation */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        background: #005bbb;
+        color: #fff;
+    }
+    nav h2 { margin: 0; }
+    nav a {
+        margin-left: 20px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    /* Main Container */
+    .container {
+        width: 90%;
+        max-width: 650px;
+        background: #fff;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+        text-align: center;
+        color: #005bbb;
+        margin-bottom: 20px;
+    }
+
+    label { display: block; font-weight: 600; margin-top: 12px; }
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 7px;
+        border-radius: 10px;
+        border: 2px solid #b9b9b9;
+    }
+
+    textarea { height: 110px; }
+
+    button {
+        margin-top: 18px;
+        width: 100%;
+        padding: 14px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover { background: #0061cc; }
+
+    .success {
+        display: none;
+        background: #c9ffd5;
+        padding: 15px;
+        border-radius: 10px;
+        color: #0b6f18;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    /* ADMIN PANEL */
+    #adminPanel {
+        display: none;
+        width: 90%;
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        font-size: 14px;
+    }
+    th {
+        background: #005bbb;
+        color: white;
+    }
+
+    #adminLogin {
+        width: 90%;
+        max-width: 350px;
+        margin: 60px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        text-align: center;
+        display: none;
+    }
+</style>
+</head>
+<nav>
+        <div >
+           <a href="anti-bullying.html">HOME</a>
+           <a href="about.html">ABOUT</a>
+           <a href="help.html">HELP</a>
+            <a href="admin.html">REPORT</a>
+           
+        </div>
+    </nav>
+
+
+<body>
+
+<nav>
+    <h2>Anti-Bullying</h2>
+    <div>
+        <a href="#" onclick="showForm()">REPORT</a>
+        <a href="#" onclick="showAdminLogin()">ADMIN</a>
+    </div>
+</nav>
+
+
+
+<!-- REPORT FORM -->
+<div class="container" id="formContainer">
+    <h1>Report a Complaint</h1>
+
+    <label>Your Name:</label>
+    <input type="text" id="name">
+
+    <label>Class:</label>
+    <input type="text" id="class">
+
+    <label>Complaint Type:</label>
+    <select id="type">
+        <option>Bullying</option>
+        <option>Harassment</option>
+        <option>Threatening</option>
+        <option>Misbehaviour</option>
+        <option>Other</option>
+    </select>
+
+    <label>Person You're Reporting:</label>
+    <input type="text" id="against">
+
+    <label>Description:</label>
+    <textarea id="details"></textarea>
+
+    <button onclick="submitReport()">Submit Report</button>
+
+    <div id="success" class="success">✔ Complaint Submitted!</div>
+</div>
+
+
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin">
+    <h2>Admin Login</h2>
+    <input type="password" id="adminKey" placeholder="Enter secret key">
+    <button onclick="checkKey()">Login</button>
+</div>
+
+
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+    <h1>All Submitted Reports</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Type</th>
+                <th>Against</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="reportTable"></tbody>
+    </table>
+</div>
+
+
+
+<script>
+/* ---------------- FORM SUBMIT ---------------- */
+function submitReport() {
+    let name = document.getElementById("name").value;
+    let className = document.getElementById("class").value;
+    let type = document.getElementById("type").value;
+    let against = document.getElementById("against").value;
+    let details = document.getElementById("details").value;
+
+    if (!name || !className || !against || !details) {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    let report = { name, className, type, against, details };
+    
+    let allReports = JSON.parse(localStorage.getItem("reports")) || [];
+    allReports.push(report);
+
+    localStorage.setItem("reports", JSON.stringify(allReports));
+
+    document.getElementById("success").style.display = "block";
+    setTimeout(()=>{ document.getElementById("success").style.display = "none"; }, 3000);
+
+    document.getElementById("name").value = "";
+    document.getElementById("class").value = "";
+    document.getElementById("against").value = "";
+    document.getElementById("details").value = "";
+}
+
+/* ---------------- ADMIN LOGIN ---------------- */
+function showAdminLogin() {
+    document.getElementById("formContainer").style.display = "none";
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("adminLogin").style.display = "block";
+}
+
+function checkKey() {
+    let key = document.getElementById("adminKey").value;
+    if (key === "letmein123") {
+        showAdminPanel();
+    } else {
+        alert("Incorrect Key!");
+    }
+}
+
+/* ---------------- SHOW ADMIN PANEL ---------------- */
+function showAdminPanel() {
+    document.getElementById("adminLogin").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+
+    let allReports = JSON.parse(localStorage.getItem("reports")) || [];
+    let table = document.getElementById("reportTable");
+    table.innerHTML = "";
+
+    allReports.forEach(r => {
+        table.innerHTML += `
+        <tr>
+            <td>${r.name}</td>
+            <td>${r.className}</td>
+            <td>${r.type}</td>
+            <td>${r.against}</td>
+            <td>${r.details}</td>
+        </tr>`;
+    });
+}
+
+/* ---------------- SHOW FORM ---------------- */
+function showForm() {
+    document.getElementById("adminLogin").style.display = "none";
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("formContainer").style.display = "block";
+}
+</script>
+<div class="image-box">
+           
+            <center><img src="mit.png" alt="Anti Bullying Image"></center>
+        </div>
+
+
+
+</body>
+</html>
