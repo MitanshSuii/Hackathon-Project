@@ -10,9 +10,9 @@
         margin: 0;
         font-family: Poppins, sans-serif;
         background-image: url("give.png");
-    
+    }
 
-    /* Navigation */
+   
     nav {
         display: flex;
         justify-content: space-between;
@@ -29,7 +29,7 @@
         font-weight: 600;
     }
 
-    /* Main Container */
+    
     .container {
         width: 90%;
         max-width: 650px;
@@ -81,7 +81,7 @@
         font-weight: bold;
     }
 
-    /* ADMIN PANEL */
+    
     #adminPanel {
         display: none;
         width: 90%;
@@ -144,7 +144,6 @@
 
 
 
-<!-- REPORT FORM -->
 <div class="container" id="formContainer">
     <h1>Report a Complaint</h1>
 
@@ -176,7 +175,7 @@
 
 
 
-<!-- ADMIN LOGIN -->
+
 <div id="adminLogin">
     <h2>Admin Login</h2>
     <input type="password" id="adminKey" placeholder="Enter secret key">
@@ -185,7 +184,7 @@
 
 
 
-<!-- ADMIN PANEL -->
+
 <div id="adminPanel">
     <h1>All Submitted Reports</h1>
     <table>
@@ -205,7 +204,7 @@
 
 
 <script>
-/* ---------------- FORM SUBMIT ---------------- */
+
 function submitReport() {
     let name = document.getElementById("name").value;
     let className = document.getElementById("class").value;
@@ -234,7 +233,7 @@ function submitReport() {
     document.getElementById("details").value = "";
 }
 
-/* ---------------- ADMIN LOGIN ---------------- */
+
 function showAdminLogin() {
     document.getElementById("formContainer").style.display = "none";
     document.getElementById("adminPanel").style.display = "none";
@@ -250,7 +249,7 @@ function checkKey() {
     }
 }
 
-/* ---------------- SHOW ADMIN PANEL ---------------- */
+
 function showAdminPanel() {
     document.getElementById("adminLogin").style.display = "none";
     document.getElementById("adminPanel").style.display = "block";
@@ -271,7 +270,7 @@ function showAdminPanel() {
     });
 }
 
-/* ---------------- SHOW FORM ---------------- */
+
 function showForm() {
     document.getElementById("adminLogin").style.display = "none";
     document.getElementById("adminPanel").style.display = "none";
